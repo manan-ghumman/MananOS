@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import Panel from './panel';
+import Panel from './Panel';
 import Window from './Window';
 import DesktopIcon from './DesktopIcon';
 import BootScreen from './BootScreen';
