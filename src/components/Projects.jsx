@@ -77,7 +77,7 @@ export default function Projects() {
             onMouseEnter={() => setHoveredIdx(i)}
             onMouseLeave={() => setHoveredIdx(-1)}
             onClick={() => {
-              playSound('close.mp3');
+              playSound('open.mp3');
               if (proj.link && proj.link !== '#') window.open(proj.link, '_blank');
             }}
             style={{

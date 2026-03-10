@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import UnicornScene from 'unicornstudio-react';
 import Panel from './Panel';
 import Window from './Window';
 import DesktopIcon from './DesktopIcon';
@@ -47,8 +48,17 @@ export default function Desktop() {
         background: 'oklch(20% 0.05 250)',
       }}
     >
-      {/* Animated background mesh */}
-      <div className="desktop-mesh" />
+      {/* Animated background from Unicorn Studio */}
+      <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
+        <UnicornScene
+          projectId="cNXq8iY8Txj5QZT1xie4"
+          width="100%"
+          height="100%"
+          scale={1}
+          dpi={1.5}
+          sdkUrl="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@2.1.3/dist/unicornStudio.umd.js"
+        />
+      </div>
 
       {!booted && <BootScreen onFinished={handleBootFinished} />}
 
@@ -110,11 +120,15 @@ export default function Desktop() {
         onOpenApp={openApp}
         onFocusApp={(appId) => {
           const win = openWindows.find((w) => w.id === appId);
-          if (win?.minimized) {
-            minimizeApp(appId); // toggle back
+          const isTopMost = openWindows.every(w => w.id === appId || w.zIndex <= win.zIndex);
+          
+          if (!win.minimized && isTopMost) {
+            minimizeApp(appId);
+          } else {
+            focusApp(appId);
           }
-          focusApp(appId);
         }}
+        onToggleMaximizeApp={toggleMaximize}
       />
     </div>
   );

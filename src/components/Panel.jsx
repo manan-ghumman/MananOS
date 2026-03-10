@@ -3,7 +3,7 @@ import APP_REGISTRY from '../config/apps.jsx';
 import AppLauncher from './AppLauncher';
 import { playSound, getSoundEnabled, toggleSoundGlobally } from '../utils/sound';
 
-export default function Panel({ runningAppIds, onOpenApp, onFocusApp }) {
+export default function Panel({ runningAppIds, onOpenApp, onFocusApp, onToggleMaximizeApp }) {
   const [launcherOpen, setLauncherOpen] = useState(false);
   const [time, setTime] = useState(new Date());
   const [hoveredBtn, setHoveredBtn] = useState(null);
