@@ -40,11 +40,11 @@ export default function Desktop() {
     <div
       className="desktop"
       style={{
-        height: '100vh',
+        height: '100dvh',
         width: '100vw',
         position: 'relative',
         overflow: 'hidden',
-        background: 'linear-gradient(135deg, #0f0c29 0%, #1b1e42 40%, #24243e 70%, #302b63 100%)',
+        background: 'oklch(20% 0.05 250)',
       }}
     >
       {/* Animated background mesh */}

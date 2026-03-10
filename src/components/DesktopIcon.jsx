@@ -8,10 +8,20 @@ export default function DesktopIcon({ name, icon, onOpen }) {
       className="desktop-icon"
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      onDoubleClick={onOpen}
+      onDoubleClick={() => {
+        if (window.innerWidth > 768) onOpen();
+      }}
+      onTouchEnd={(e) => {
+        e.preventDefault(); // Prevents simulated mouse events like onClick from firing twice
+        onOpen();
+      }}
+      onClick={() => {
+        if (window.innerWidth <= 768) onOpen();
+      }}
       style={{
         width: '90px',
         padding: '10px 6px',
+        touchAction: 'manipulation',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',

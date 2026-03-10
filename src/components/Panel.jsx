@@ -31,22 +31,25 @@ export default function Panel({ runningAppIds, onOpenApp, onFocusApp }) {
         className="panel"
         style={{
           position: 'fixed',
-          bottom: '8px',
+          bottom: '12px',
           left: '50%',
           transform: 'translateX(-50%)',
-          height: '48px',
-          background: 'rgba(16, 18, 30, 0.82)',
-          backdropFilter: 'blur(24px)',
-          borderRadius: '12px',
+          height: '52px',
+          background: 'rgba(12, 14, 25, 0.75)',
+          backdropFilter: 'blur(32px)',
+          WebkitBackdropFilter: 'blur(32px)',
+          borderRadius: '16px',
+          borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+          borderBottom: '1px solid rgba(0, 0, 0, 0.3)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          padding: '0 10px',
+          padding: '0 12px',
           color: 'white',
           boxShadow:
-            '0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.06)',
+            '0 20px 40px -10px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05)',
           zIndex: 1000,
-          gap: '4px',
+          gap: '6px',
           minWidth: '500px',
           width: 'auto',
           maxWidth: '90vw',
@@ -63,18 +66,19 @@ export default function Panel({ runningAppIds, onOpenApp, onFocusApp }) {
           onMouseLeave={() => setHoveredBtn(null)}
           title="Application Launcher"
           style={{
-            fontSize: '18px',
-            padding: '6px 10px',
-            borderRadius: '8px',
+            fontSize: '20px',
+            padding: '6px 12px',
+            borderRadius: '10px',
             border: 'none',
             background:
               launcherOpen
-                ? 'rgba(61, 174, 233, 0.25)'
+                ? 'rgba(61, 174, 233, 0.3)'
                 : hoveredBtn === 'launcher'
-                ? 'rgba(255,255,255,0.08)'
+                ? 'rgba(255,255,255,0.1)'
                 : 'transparent',
             cursor: 'pointer',
-            transition: 'all 0.15s ease',
+            transition: 'all 0.2s cubic-bezier(0.25, 1, 0.5, 1)',
+            transform: hoveredBtn === 'launcher' ? 'scale(1.05)' : 'scale(1)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -99,7 +103,7 @@ export default function Panel({ runningAppIds, onOpenApp, onFocusApp }) {
         />
 
         {/* Running Apps */}
-        <div style={{ display: 'flex', gap: '2px', flex: 1 }}>
+        <div className="running-apps" style={{ display: 'flex', gap: '2px', flex: 1, overflowX: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
           {runningAppIds.map((appId) => {
             const app = APP_REGISTRY[appId];
             if (!app) return null;
@@ -113,35 +117,38 @@ export default function Panel({ runningAppIds, onOpenApp, onFocusApp }) {
                 style={{
                   fontSize: '16px',
                   padding: '6px 12px',
-                  borderRadius: '6px',
+                  borderRadius: '10px',
                   border: 'none',
                   background:
                     hoveredBtn === appId
                       ? 'rgba(255,255,255,0.1)'
-                      : 'rgba(255,255,255,0.04)',
+                      : 'rgba(255,255,255,0.02)',
                   cursor: 'pointer',
-                  transition: 'all 0.15s ease',
+                  transition: 'all 0.2s cubic-bezier(0.25, 1, 0.5, 1)',
+                  transform: hoveredBtn === appId ? 'scale(1.05)' : 'scale(1)',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '6px',
+                  gap: '8px',
                   position: 'relative',
-                  color: '#d0d3e0',
+                  color: '#e2e8f0',
                   fontFamily: 'inherit',
                 }}
               >
-                <span>{app.icon}</span>
-                <span style={{ fontSize: '12px', fontWeight: 500 }}>{app.name}</span>
+                <span style={{ fontSize: '18px' }}>{app.icon}</span>
+                <span style={{ fontSize: '13px', fontWeight: 500, letterSpacing: '0.3px' }}>{app.name}</span>
                 {/* Running indicator */}
                 <div
                   style={{
                     position: 'absolute',
-                    bottom: '2px',
+                    bottom: '-4px',
                     left: '50%',
                     transform: 'translateX(-50%)',
-                    width: '16px',
-                    height: '2px',
-                    borderRadius: '1px',
-                    background: '#3daee9',
+                    width: hoveredBtn === appId ? '24px' : '16px',
+                    height: '3px',
+                    borderRadius: '2px',
+                    background: 'oklch(75% 0.15 200)', // Vibrant Cyan
+                    boxShadow: '0 0 8px oklch(75% 0.15 200)',
+                    transition: 'all 0.2s ease',
                   }}
                 />
               </button>

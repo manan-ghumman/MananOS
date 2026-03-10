@@ -6,7 +6,7 @@ export default function useWindowManager() {
   const [windows, setWindows] = useState({});
   const nextZIndex = useRef(10);
 
-  const openApp = useCallback((appId) => {
+    const openApp = useCallback((appId) => {
     playSound('open.mp3');
     setWindows((prev) => {
       if (prev[appId]) {
@@ -21,19 +21,27 @@ export default function useWindowManager() {
       if (!config) return prev;
 
       const newZ = nextZIndex.current++;
+      
+      const isMobile = window.innerWidth < 768;
+      const initialWidth = isMobile ? window.innerWidth : Math.min(config.defaultWidth, window.innerWidth - 40);
+      const initialHeight = isMobile ? window.innerHeight - 65 : Math.min(config.defaultHeight, window.innerHeight - 100);
+      
+      const baseX = isMobile ? 0 : config.defaultX;
+      const baseY = isMobile ? 0 : config.defaultY;
+
       return {
         ...prev,
         [appId]: {
           id: appId,
           name: config.name,
           icon: config.icon,
-          x: config.defaultX + Math.random() * 40 - 20,
-          y: config.defaultY + Math.random() * 40 - 20,
-          width: config.defaultWidth,
-          height: config.defaultHeight,
+          x: isMobile ? 0 : Math.max(0, Math.min(baseX + Math.random() * 40 - 20, window.innerWidth - initialWidth)),
+          y: isMobile ? 0 : Math.max(0, Math.min(baseY + Math.random() * 40 - 20, window.innerHeight - initialHeight)),
+          width: initialWidth,
+          height: initialHeight,
           zIndex: newZ,
           minimized: false,
-          maximized: false,
+          maximized: isMobile,
         },
       };
     });

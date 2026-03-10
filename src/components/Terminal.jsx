@@ -159,7 +159,7 @@ export default function Terminal() {
       onClick={() => inputRef.current?.focus()}
       style={{
         fontFamily: '"JetBrains Mono", "Fira Code", "Consolas", monospace',
-        fontSize: '12.5px',
+        fontSize: '14px',
         color: '#a8e6cf',
         height: '100%',
         display: 'flex',
@@ -198,7 +198,7 @@ export default function Terminal() {
             outline: 'none',
             color: '#a8e6cf',
             fontFamily: 'inherit',
-            fontSize: 'inherit',
+            fontSize: '16px', // 16px prevents iOS zoom on focus
             flex: 1,
             caretColor: '#3daee9',
           }}

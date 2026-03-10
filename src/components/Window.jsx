@@ -68,8 +68,8 @@ export default function Window({
         position: 'absolute',
         top: 0,
         left: 0,
-        width: '100vw',
-        height: 'calc(100vh - 65px)',
+        width: '100%',
+        height: 'calc(100dvh - 65px)',
         zIndex,
         display: 'flex',
         flexDirection: 'column',
@@ -136,7 +136,13 @@ export default function Window({
               e.stopPropagation();
               onMinimize?.();
             }}
+            onTouchEnd={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              onMinimize?.();
+            }}
             title="Minimize"
+            style={{ touchAction: 'manipulation', padding: '12px' }}
           >
             <svg width="10" height="10" viewBox="0 0 10 10">
               <rect y="8" width="10" height="1.5" rx="0.5" fill="currentColor" />
@@ -148,7 +154,13 @@ export default function Window({
               e.stopPropagation();
               onToggleMaximize?.();
             }}
+            onTouchEnd={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              onToggleMaximize?.();
+            }}
             title="Maximize"
+            style={{ touchAction: 'manipulation', padding: '12px' }}
           >
             <svg width="10" height="10" viewBox="0 0 10 10">
               <rect
@@ -169,7 +181,13 @@ export default function Window({
               e.stopPropagation();
               onClose?.();
             }}
+            onTouchEnd={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              onClose?.();
+            }}
             title="Close"
+            style={{ touchAction: 'manipulation', padding: '12px' }}
           >
             <svg width="10" height="10" viewBox="0 0 10 10">
               <path d="M1 1L9 9M9 1L1 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />

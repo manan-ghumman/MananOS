@@ -53,25 +53,26 @@ html, body, #root {
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 600px 400px at 20% 30%, rgba(61, 174, 233, 0.06) 0%, transparent 70%),
-    radial-gradient(ellipse 500px 500px at 80% 70%, rgba(155, 89, 182, 0.05) 0%, transparent 70%),
-    radial-gradient(ellipse 400px 300px at 50% 50%, rgba(39, 174, 96, 0.03) 0%, transparent 70%);
-  animation: meshFloat 20s ease-in-out infinite alternate;
+    radial-gradient(ellipse 800px 600px at 20% 30%, oklch(75% 0.15 200 / 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 700px 600px at 80% 80%, oklch(65% 0.20 300 / 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 900px 500px at 50% 50%, oklch(70% 0.12 150 / 0.05) 0%, transparent 70%);
+  animation: meshFloat 25s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
 }
 
 @keyframes meshFloat {
-  0% { opacity: 1; }
-  50% { opacity: 0.7; }
-  100% { opacity: 1; }
+  0% { transform: scale(1) translate(0, 0); opacity: 0.8; }
+  50% { transform: scale(1.05) translate(20px, -20px); opacity: 1; }
+  100% { transform: scale(1) translate(-20px, 20px); opacity: 0.8; }
 }
 
 /* ===== Window ===== */
 .window {
-  transition: box-shadow 0.2s ease;
+  transition: box-shadow 0.3s cubic-bezier(0.25, 1, 0.5, 1), transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.08);
 }
 
 .window:hover {
-  box-shadow: 0 16px 56px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.08);
+  box-shadow: 0 25px 60px -10px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.12);
 }
 
 .window-titlebar {
@@ -222,4 +223,46 @@ html, body, #root {
 
 button:focus:not(:focus-visible) {
   outline: none;
+}
+
+/* ===== Responsive (Mobile Adjustments) ===== */
+@media (max-width: 768px) {
+  .panel {
+    min-width: unset !important;
+    width: 90vw !important;
+    padding: 0 6px !important;
+    gap: 4px !important;
+  }
+  
+  .panel .launcher-btn {
+    padding: 6px 8px !important;
+  }
+  
+  .panel span {
+    font-size: 11px !important;
+  }
+  
+  .window {
+    border-radius: 0 !important;
+    width: 100% !important;
+    height: calc(100dvh - 75px) !important;
+    top: 0 !important;
+    left: 0 !important;
+    max-height: calc(100dvh - 75px) !important;
+  }
+
+  /* Make sure icons are easily tappable */
+  .desktop-icon {
+    gap: 4px !important;
+  }
+
+  /* Make sure Window controls (close/minimize) are tappable */
+  .window-btn {
+    width: 32px !important;
+    height: 32px !important;
+  }
+}
+
+.running-apps::-webkit-scrollbar {
+  display: none;
 }
